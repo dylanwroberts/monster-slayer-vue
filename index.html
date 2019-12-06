@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div class="container" id="app">
+      <div id="health-area">
+        <div>
+          <p>player ({{ playerHealth }})</p>
+          <div class="healthbar">
+            <div class="health" :style="{width: playerHealth + '%'}"></div>
+          </div>
+        </div>
+        <div>
+          <p>monster ({{ monsterHealth }})</p>
+          <div class="healthbar">
+            <div class="health" :style="{width: monsterHealth + '%'}"></div>
+          </div>
+        </div>
+      </div>
+      <div id="actions" v-if="active">
+        <button @click="attack(25)">attack</button>
+        <button @click="attack(100)">special attack</button>
+        <button @click="heal">heal</button>
+        <button @click="reset(); active = false">retreat</button>
+      </div>
+      <div id="actions" v-else>
+        <p>{{ winMsg }}</p>
+        <button @click="reset(); active = true">start a new game</button>
+      </div>
+      <div id="history">
+        <div class="history-list" v-for="round in history">
+          <div class="round">{{ round.player }}</div>
+          <div class="round">{{ round.monster }}</div>
+        </div>
+      </div>
+    </div>
+    <script src="./game.js"></script>
+  </body>
+</html>
